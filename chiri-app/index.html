@@ -97,6 +97,16 @@
   .sub-btn.review { background: #ff8787; }
   .sub-btn small { display: block; font-size: 13px; }
   .credit { margin-top: 14px; font-size: 12px; color: #999; text-align: center; }
+  /* おうちのかたへ（きろく の ほぞん） */
+  .start-links { display: flex; justify-content: center; margin-top: 10px; }
+  .parent-link { background: none; box-shadow: none; color: #666; font-size: 15px; text-decoration: underline; padding: 4px 8px; }
+  .pa-card { max-width: 640px; width: 100%; margin: 14px auto 0; font-size: 16px; line-height: 1.7; }
+  .pa-card h3 { margin: 0 0 6px; }
+  .pa-card p { margin: 0 0 10px; }
+  .pa-note { font-size: 14px; color: #666; }
+  .pa-result { font-weight: bold; color: #2b8a3e; background: #ebfbee; border-radius: 10px; padding: 8px 12px; margin-top: 10px !important; }
+  .pa-result.ng { color: #c92a2a; background: #fff5f5; }
+  .pa-result[hidden] { display: none; }
 
   /* もんだい がめん */
   .topbar {
@@ -456,7 +466,24 @@
       <div class="cal-legend" id="calLegend"></div>
     </div>
     <div class="credit">ちず：「地球地図日本」（国土地理院）を加工して作成</div>
+    <div class="start-links"><button class="parent-link" id="parentBtn">おうちのかたへ</button></div>
     </div>
+    </div>
+  </section>
+
+  <!-- おうちのかたへ（きろく を ファイル に ほぞん する） -->
+  <section id="parent" class="screen">
+    <div class="mem-head">
+      <button class="back-btn" id="parentBack">◀ もどる</button>
+      <h1>おうちのかたへ</h1>
+      <span style="width:40px"></span>
+    </div>
+    <div class="card pa-card">
+      <h3>記録の保存</h3>
+      <p>カレンダー・おぼえた地図・まちがえた問題の記録を、1つのファイルにして保存します。ファイルは、この端末の「ダウンロード」（iPhone・iPad では「ファイル」アプリの「ダウンロード」）などに入ります。</p>
+      <p class="pa-note">記録はこのブラウザの中だけにあり、外部には送りません。ブラウザの履歴やサイトデータを消すと、記録も消えます。</p>
+      <button class="big-btn" id="saveBtn">💾 きろくを ほぞん</button>
+      <p class="pa-result" id="saveResult" hidden></p>
     </div>
   </section>
 
@@ -1604,6 +1631,34 @@ const LABEL_XY = {"26":[371.3,720.1],"41":[94.4,844.0],"43":[131.6,883.7],"37":[
     renderMemory();
   });
   $("memBack").addEventListener("click", () => show("start"));
+
+  // ================= おうちのかたへ：きろく を ファイル に ほぞん（どこ にも おくらない）=================
+  // かたち は アプリ版 の バックアップ と おなじ（アプリ の「きろくを よみこむ」で よめる）
+  $("parentBtn").addEventListener("click", () => { $("saveResult").hidden = true; show("parent"); });
+  $("parentBack").addEventListener("click", () => show("start"));
+  $("saveBtn").addEventListener("click", () => {
+    const data = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith("chiri-quiz-")) data[k] = localStorage.getItem(k);
+    }
+    const r = $("saveResult");
+    r.hidden = false;
+    if (!Object.keys(data).length) { r.className = "pa-result ng"; r.textContent = "まだ記録がありません。"; return; }
+    const d = new Date();
+    const name = `chizu-${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}.json`;
+    const text = JSON.stringify({ app: "chiri-quiz", v: 1, saved: d.toISOString(), name: "", data });
+    try {
+      const url = URL.createObjectURL(new Blob([text], { type: "application/json" }));
+      const a = document.createElement("a");
+      a.href = url; a.download = name;
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 2000);
+      r.className = "pa-result"; r.textContent = `保存しました（${name}）。`;
+    } catch (e) {
+      r.className = "pa-result ng"; r.textContent = "保存できませんでした。別のブラウザでお試しください。";
+    }
+  });
 
   renderStart();
 })();
