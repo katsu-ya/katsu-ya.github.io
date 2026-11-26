@@ -107,6 +107,13 @@
   .pa-result { font-weight: bold; color: #2b8a3e; background: #ebfbee; border-radius: 10px; padding: 8px 12px; margin-top: 10px !important; }
   .pa-result.ng { color: #c92a2a; background: #fff5f5; }
   .pa-result[hidden] { display: none; }
+  /* おわり の おしらせ（ストア版 が でた ので この Web版 は おわる） */
+  .end-badge { display: inline-block; background: #fff3bf; color: #8a5a00; border-radius: 999px; padding: 2px 10px; margin-left: 6px; font-size: 14px; font-weight: bold; text-decoration: none; }
+  .end-card { border: 3px solid #fab005; background: #fffbea; }
+  .end-card h3 { color: #c26a00; }
+  .end-card ol, .end-card ul { margin: 0 0 10px; padding-left: 1.4em; }
+  .end-card li { margin-bottom: 4px; }
+  .end-card b.date { color: #c92a2a; }
 
   /* もんだい がめん */
   .topbar {
@@ -466,7 +473,7 @@
       <div class="cal-legend" id="calLegend"></div>
     </div>
     <div class="credit">ちず：「地球地図日本」（国土地理院）を加工して作成</div>
-    <div class="start-links"><button class="parent-link" id="parentBtn">おうちのかたへ</button></div>
+    <div class="start-links"><button class="parent-link" id="parentBtn">おうちのかたへ<span class="end-badge">だいじな おしらせ</span></button></div>
     </div>
     </div>
   </section>
@@ -478,6 +485,21 @@
       <h1>おうちのかたへ</h1>
       <span style="width:40px"></span>
     </div>
+    <div class="card pa-card end-card">
+      <h3>📢 このページ（Web版）は <b class="date">2026年12月26日</b> で終了します</h3>
+      <p>「にっぽん ちり クイズ」は、iPhone・iPad のアプリ「<b>にっぽん ちず たんけん</b>」として新しくなりました。ご利用いただき、ありがとうございました。</p>
+      <h3>iPhone・iPad をお使いの方</h3>
+      <p>App Store で「にっぽん ちず たんけん」と検索して、アプリを入れてください。30日間 無料でお試しでき、続けて使うときは月額300円（税込）です。お試しは、アプリの「おうちのかたへ」から保護者の方が始めます（自動で課金されることはありません）。</p>
+      <h3>これまでの記録をアプリに移すには</h3>
+      <ol>
+        <li>このページの下の「💾 きろくを ほぞん」を押して、記録のファイルを保存します。</li>
+        <li>アプリを開き、「おうちのかたへ」→「記録と設定」→「📂 きろくを よみこむ」で、そのファイルを選びます。</li>
+      </ol>
+      <p class="pa-note">カレンダー・おぼえた地図・まちがえた問題の記録が、そのまま続きから使えます。パソコンで保存したときは、iCloud Drive や AirDrop などでファイルを iPhone・iPad に送ってから読みこんでください。</p>
+      <h3>Android・パソコンをお使いの方</h3>
+      <p>2026年12月26日までは、このページをこれまでどおりお使いいただけます。終了したあとは、このページも、このブラウザの中の記録も見られなくなります。記録を残したいときは、終了の日までに「💾 きろくを ほぞん」で保存してください。</p>
+    </div>
+
     <div class="card pa-card">
       <h3>記録の保存</h3>
       <p>カレンダー・おぼえた地図・まちがえた問題の記録を、1つのファイルにして保存します。ファイルは、この端末の「ダウンロード」（iPhone・iPad では「ファイル」アプリの「ダウンロード」）などに入ります。</p>
